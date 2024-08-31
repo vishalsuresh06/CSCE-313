@@ -10,7 +10,6 @@ struct Point {
 class Shape {
     int vertices;
     Point** points;
-    double* shapeArea;
 
 public: 
     Shape (int _vertices) {
@@ -24,7 +23,6 @@ public:
         for(int i = 0;i <= vertices;i++) 
             delete[] points[i]; //Delete sub arrays
         delete[] points;        //Delete entire array
-        delete shapeArea;
     }
 
     void addPoints (Point* pts) {
@@ -32,7 +30,7 @@ public:
             *points[i] = pts[i];        //Old pts replace with vals of old array
     }
 
-    double* area () {
+    double area () {
         int temp = 0;
         for (int i = 0; i < vertices; i++) {
             int j = (i + 1) % vertices; // Wrap around to the first point
@@ -40,11 +38,9 @@ public:
             int rhs = points[j]->x * points[i]->y;
             temp += (lhs - rhs);
         }
-        shapeArea = new double((abs(temp) / 2.0));
-        return shapeArea;
+        double area = (abs(temp) / 2.0);
+        return area;
     }
-
-
 };
 
 int main () {
@@ -56,8 +52,8 @@ int main () {
 
     // adding points to tri
     Point triPts[3] = {tri1, tri2, tri3};
-    Shape* tri = new Shape(3);
-    tri->addPoints(triPts);
+    Shape tri(3);
+    tri.addPoints(triPts);
 
     // FIXME: create the following points using your preferred struct
     //        definition:
@@ -68,15 +64,12 @@ int main () {
 
     // adding points to quad
     Point quadPts[4] = {quad1, quad2, quad3, quad4};
-    Shape* quad = new Shape(4);
-    quad->addPoints(quadPts);
+    Shape quad(4);
+    quad.addPoints(quadPts);
 
     // FIXME: print out area of tri and area of quad
-    std::cout << "Area of triangle: " << tri->area() << std::endl;
-    std::cout << "Area of quadrilateral: " << quad->area() << std::endl;
-
-    delete tri;
-    delete quad;
+    std::cout << "Area of triangle: " << tri.area() << std::endl;
+    std::cout << "Area of quadrilateral: " << quad.area() << std::endl;
 
     return 0;
 }
