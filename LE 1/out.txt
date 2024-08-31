@@ -1,0 +1,2 @@
+Area of triangle: 0x107000630
+Area of quadrilateral: 0x107000610
